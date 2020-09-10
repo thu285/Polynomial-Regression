@@ -1,0 +1,15 @@
+Package: pkg338
+Type: Package
+Title: What the Package Does in One 'Title Case' Line
+Version: 1.0
+Date: 2019-12-05
+Author: Aiden Kenny <akenny@fandm.edu> and Thu Do <tdu@fandm.edu>
+Maintainer: Aiden Kenny <akenny@fandm.edu>
+Description: The purpose of this package is to implement linear regression, 
+    polynomial regression, and cubic spline regression in the simple case of a single, 
+    continuous predictor and a single continuous response. 
+License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.0)
+LinkingTo: Rcpp
+NeedsCompilation: yes
+Packaged: 2019-12-16 04:28:48 UTC; akenn

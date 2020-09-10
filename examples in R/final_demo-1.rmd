@@ -1,0 +1,51 @@
+
+Here we are reading in the data set.
+
+```{r}
+library(ISLR)
+x = Auto$horsepower
+y = Auto$mpg
+```
+
+Here we are fitting a linear model.
+
+```{r}
+library(pkg338)
+lmod = linfit338(x, y);
+lmod$coef
+```
+
+And here we are plotting the linear model.
+
+```{r}
+plot(x, y, col = "darkgrey", las = 1, xlab = "Horsepower", ylab = "MPG")
+lines(lmod$X, lmod$Y, col = "#CC79A7", lwd = 3)
+```
+
+Compated to the coefficients of the linear model with base R.
+
+```{r}
+mod1 = lm(mpg ~ horsepower, data = Auto)
+mod1$coefficients
+```
+
+Here we are fitting a polynomial model.
+
+```{r}
+pmod = polyfit338(x, y, 2)
+pmod$coef
+```
+
+And plotting it.
+
+```{r}
+plot(x, y, col = "darkgrey", las = 1, xlab = "Horsepower", ylab = "MPG")
+lines(pmod$X, pmod$Y, col = "#F0E442", lwd = 3)
+```
+
+Again comparing to base R.
+
+```{r}
+mod2 = lm(mpg ~ poly(horsepower, 2, raw = TRUE), data = Auto)
+mod2$coefficients
+```

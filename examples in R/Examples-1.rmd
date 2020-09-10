@@ -1,0 +1,36 @@
+---
+title: "Examples of fitting various regression models in R"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,include=FALSE, message = FALSE}
+library(pkg338)
+```
+
+To demonstrate the effects of different regression models, we will be using the `bonemineral` data set that contains only records of male patients. There are two variables in the data set, namely `age` and `density`. Our goal is to build models that effectively fit a linear line or polynomial trendline to the data and make accurate predictions.
+
+```{r, message = FALSE}
+bone <- read.csv("bonemale.csv", header = TRUE)
+```
+
+The first model we'll be exploring is the linear regression model `density~age` which would take form `density = intercept + beta*age` where intercept is the average density across the data set.
+
+```{r}
+lmod <- linfit338(bone$age,bone$density)
+lmod$coef
+plot(bone$age,bone$density, pch=19, cex=0.4,col="grey",xlab = "Lot Size",ylab="House Price")
+lines(lmod$X, lmod$Y, col="orange",lwd=3)
+```
+It is easy to notice that the linear regression line does not effectively account for the change of bone mineral density against age. One apparent choice to improve our model is polynomial regression model whose general form is $\hat{y} = \beta_0 + \sum_{d=1}^{D}\beta_d\cdot x^{d}$. The data strongly suggests that a cubic polynomial line would be an effective fit. 
+
+```{r}
+pmod <- polyfit338(bone$age,bone$density,3) # the last parameter indicates the order of the polynomial
+pmod$coef # gives coefficients of the regression line
+plot(bone$age,bone$density, pch=19, cex=0.4,col="grey",xlab = "Age",ylab="Density")
+lines(pmod$X, pmod$Y, col="orange",lwd=3)
+```
+The graph confirms that a polynomial line fits our data much better. The `pmod$coef` command will give us the coefficients for the line, from which we can deduce that the predicted value of bone mineral density is $\hat{y} = -101 + 20\cdot x-1.17\cdot x^2 + 0.02\cdot x^3$ where x denotes `age`. Using this formula, we can make prediction for people's bone mineral density at any age.
